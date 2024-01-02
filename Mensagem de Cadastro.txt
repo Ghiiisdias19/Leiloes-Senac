@@ -1,0 +1,1 @@
+Uma mensagem informando se o cadastro foi realizado com sucesso ou não foi criada.
