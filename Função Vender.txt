@@ -1,0 +1,1 @@
+Operação de venderProduto() em ProdutosDAO – a função agora atualiza o status de um produto para “Vendido”.
