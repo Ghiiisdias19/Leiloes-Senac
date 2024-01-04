@@ -1,0 +1,30 @@
+Operação de listarProdutosVendidos() em ProdutosDAO – a função agora busca todos os produtos no banco de dados com o status “Vendido”.
+
+public List<ProdutosDTO> listarProdutosVendidos() {
+    List<ProdutosDTO> listaProdutosVendidos = new ArrayList<>();
+    String sql = "SELECT * FROM produtos WHERE status = 'Vendido'";
+
+    try {
+        if (this.conexao.conectar()) {
+            try (PreparedStatement sentenca = this.conexao.getConnection().prepareStatement(sql)) {
+                ResultSet resultadoSentenca = sentenca.executeQuery();
+
+                while (resultadoSentenca.next()) {
+                    ProdutosDTO produto = new ProdutosDTO();
+
+                    produto.setId(resultadoSentenca.getInt("id"));
+                    produto.setNome(resultadoSentenca.getString("nome"));
+                    produto.setValor(resultadoSentenca.getInt("valor"));
+                    produto.setStatus(resultadoSentenca.getString("status"));
+
+                    listaProdutosVendidos.add(produto);
+                }
+            }
+            this.conexao.getConnection().close();
+        }
+    } catch (SQLException ex) {
+        throw new RuntimeException(ex);
+    }
+
+    return listaProdutosVendidos;
+}
