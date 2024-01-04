@@ -1,0 +1,23 @@
+Agora além da criação da tela vendas ela exibi apenas os itens com status “Vendido”.
+
+private void listarProdutosVendidos() {
+    try {
+        ProdutosDAO produtosdao = new ProdutosDAO();
+
+        DefaultTableModel model = (DefaultTableModel) listaProdutos.getModel();
+        model.setNumRows(0);
+
+        List<ProdutosDTO> listagem = produtosdao.listarProdutosVendidos();
+
+        for (int i = 0; i < listagem.size(); i++) {
+            model.addRow(new Object[]{
+                listagem.get(i).getId(),
+                listagem.get(i).getNome(),
+                listagem.get(i).getValor(),
+                listagem.get(i).getStatus()
+            });
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
